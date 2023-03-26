@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html>
 	    <head>
 	        <title>Rango</title>
@@ -9,14 +9,15 @@
 	        <h1>Rango says...</h1>
 	        <div>
 	            here is the about page <br />
-This tutorial has been put together by Leif and David.
+                This tutorial has been put together Martin Smith.
 	        </div>
 	        <div>
 	            <a href="/rango/">Index</a><br />
-               <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango." />
-				<img src="{% static 'media/cat.jpg' %}" alt="Picture of a Cat" />
-
+               <img src="{% static 'images/rango.jpg' %}"
+	                 alt="Picture of Rango." />
+				<img src="{% get_media_prefix %}cat.jpg"
+	                 alt="Picture of a Cat." />
 	        </div>
 	    </body>
 
-</html>
+	</html>
