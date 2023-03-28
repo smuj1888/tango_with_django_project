@@ -8,37 +8,46 @@ from rango.models import Category, Page
 
 
 def populate():
-    python_cat = add_cat('Python', views=128, likes=64)
-    add_page(cat=python_cat,
-        title="Official Python Tutorial",
-        url="http://docs.python.org/2/tutorial/")
-    add_page(cat=python_cat,
-        title="How to Think like a Computer Scientist",
-        url="http://www.greenteapress.com/thinkpython/")
-    add_page(cat=python_cat,
-        title="Learn Python in 10 Minutes",
-        url="http://www.korokithakis.net/tutorials/python/")
+    python_pages = [
+        {'title': 'Official Python Tutorial',
+         'url': 'http://docs.python.org/3/tutorial/',
+         'views': 114},
+        {'title': 'How to Think like a Computer Scientist',
+         'url': 'http://www.greenteapress.com/thinkpython/',
+          'views': 53},
+        {'title': 'Learn Python in 10 Minutes',
+         'url': 'http://www.korokithakis.net/tutorials/python/',
+        'views': 20}
+    ]
 
-    django_cat = add_cat('Django', views=64, likes=32)
-    add_page(cat=django_cat,
-        title="Official Django Tutorial",
-        url="https://docs.djangoproject.com/en/3.2/intro/tutorial01/")
-    add_page(cat=django_cat,
-        title="Django Rocks",
-        url="http://www.djangorocks.com/")
-    add_page(cat=django_cat,
-        title="How to Tango with Django",
-        url="http://www.tangowithdjango.com/")
+    django_pages = [
+        {'title': 'Official Django Tutorial',
+         'url': 'https://docs.djangoproject.com/en/4.0/intro/tutorial01/',
+         'views': 32},
+        {'title': 'Django Rocks',
+         'url': 'http://www.djangorocks.com/',
+         'views': 14},
+        {'title': 'How to Tango with Django',
+         'url': 'http://www.tangowithdjango.com/',
+         'views': 1324}]
 
-    other_frameworks_cat = add_cat('Other Frameworks', views=32, likes=16)
-    add_page(cat=other_frameworks_cat,
-        title="Bottle",
-        url="http://bottlepy.org/docs/dev/")
-    add_page(cat=other_frameworks_cat,
-        title="Flask",
-        url="http://flask.pocoo.org")
+    other_pages = [
+        {'title': 'Bottle',
+         'url': 'http://bottlepy.org/docs/dev/',
+         'views': 54},
+        {'title': 'Flask',
+         'url': 'http://flask.pocoo.org',
+         'views': 64}]
 
-    # Print out what we have added to the user.
+    cats = {'Python': {'pages': python_pages, 'views': 128, 'likes': 64},
+            'Django': {'pages': django_pages, 'views': 64, 'likes': 32},
+            'Other Frameworks': {'pages': other_pages, 'views': 32, 'likes': 16}}
+
+    for cat, cat_data in cats.items():
+        c = add_cat(cat, views=cat_data['views'], likes=cat_data['likes'])
+        for p in cat_data['pages']:
+            add_page(c, p['title'], p['url'], p['views'])
+
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
             print(f'- {c}: {p}')
